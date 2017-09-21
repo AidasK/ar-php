@@ -312,6 +312,7 @@ class I18N_Arabic_Glyphs
         // Lam Jeem
 
         $output = $this->decodeEntities($output, $exclude = array('&'));
+
         return $output;
     }
     
@@ -589,7 +590,7 @@ class I18N_Arabic_Glyphs
         $pieces = explode('&', $text);
         $text   = array_shift($pieces);
         foreach ($pieces as $piece) {
-            if ($piece[0] == '#') {
+            if (isset($piece[0]) && $piece[0] == '#') {
                 if ($piece[1] == 'x') {
                     $one = '#x';
                 } else {
