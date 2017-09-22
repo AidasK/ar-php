@@ -208,7 +208,7 @@ class I18N_Arabic_Glyphs
         $prevChar = null;
         $nextChar = null;
         $output   = '';
-        
+        $chars = [];
         $_temp = mb_strlen($str);
 
         for ($i = 0; $i < $_temp; $i++) {
@@ -232,7 +232,6 @@ class I18N_Arabic_Glyphs
                 }
             }
             
-            $Reversed    = false;
             $flip_arr    = ')]>}';
             $ReversedChr = '([<{';
             
@@ -526,15 +525,16 @@ class I18N_Arabic_Glyphs
                 '٠', '١', '٢', '٣', '٤',
                 '٥', '٦', '٧', '٨', '٩'
             );
-            
+            $p_nums = [];
             foreach ($nums as $k => $v) {
                 $p_nums[$k] = '/'.$v.'/ui';
             }
             $output = preg_replace($p_nums, $arNums, $output);
-            
+            $p_arNums = [];
             foreach ($arNums as $k => $v) {
                 $p_arNums[$k] = '/([a-z-\d]+)'.$v.'/ui';
             }
+            $r_nums = [];
             foreach ($nums as $k => $v) {
                 $r_nums[$k] = '${1}'.$v;
             }
@@ -637,7 +637,7 @@ class I18N_Arabic_Glyphs
         if ($prefix == '#x') {
             $codepoint = base_convert($codepoint, 16, 10);
         }
-        
+        $str = '';
         // Encode codepoint as UTF-8 bytes
         if ($codepoint < 0x80) {
             $str = chr($codepoint);
