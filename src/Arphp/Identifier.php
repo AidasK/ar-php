@@ -1,4 +1,3 @@
-Identifier
 <?php
 
 namespace Arphp;
