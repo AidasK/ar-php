@@ -225,9 +225,9 @@ class I18N_Arabic_Glyphs
                 $prevChar = $chars[$i - 1];
             }
             
-            if ($prevChar && mb_strpos($this->_vowel, $prevChar) !== false) {
+            if ($prevChar && mb_strpos($this->_vowel, $prevChar) !== false && isset($chars[$i - 2])) {
                 $prevChar = $chars[$i - 2];
-                if ($prevChar && mb_strpos($this->_vowel, $prevChar) !== false) {
+                if ($prevChar && mb_strpos($this->_vowel, $prevChar) !== false && isset($chars[$i - 3])) {
                     $prevChar = $chars[$i - 3];
                 }
             }
@@ -261,7 +261,8 @@ class I18N_Arabic_Glyphs
             }
             
             if ($crntChar && mb_strpos($this->_vowel, $crntChar) !== false) {
-                if ((mb_strpos($this->_nextLink, $chars[$i + 1]) !== false) 
+                if (isset($chars[$i + 1]) &&
+                    (mb_strpos($this->_nextLink, $chars[$i + 1]) !== false)
                     && (mb_strpos($this->_prevLink, $prevChar) !== false)
                 ) {
                     $output .= '&#x' . $this->getGlyphs($crntChar, 1) . ';';
@@ -281,7 +282,7 @@ class I18N_Arabic_Glyphs
                     $form++;
                 }
                 
-                if (isset($chars[$i - 2]) && mb_strpos($this->_vowel, $chars[$i - 1])) {
+                if (isset($chars[$i - 1]) && mb_strpos($this->_vowel, $chars[$i - 1])) {
                     $output .= '&#x';
                     $output .= $this->getGlyphs($crntChar, $form).';';
                 } else {
